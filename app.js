@@ -41,6 +41,10 @@ function buildTable(data) {
     
     // (Now that we have the start of a clean table, let's apply the forEach function.)
 
+
+    // Module 11.5.2: Add forEach to Your Table (below)
+    // https://courses.bootcampspot.com/courses/1225/pages/11-dot-5-2-add-foreach-to-your-table?module_item_id=498852
+   
     // Loop through each object in the data
     // and append a row and cells for each value in the row
     data.forEach((dataRow) => {
@@ -56,3 +60,7 @@ function buildTable(data) {
       );
     });
 }
+
+// Footnote/tip:--->tbody.html("");
+// Q: Why should you clear existing data from the table?
+// A: Because we need to clear the data first, otherwise the data users search will already be filtered when they search again.
