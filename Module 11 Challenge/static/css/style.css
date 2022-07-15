@@ -1,0 +1,24 @@
+
+/* Instructions for this file found in Module 11.6.3: Customize the Page with CSS
+
+    link:
+        https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-3-customize-the-page-with-css?module_item_id=498888
+
+*/
+
+
+
+/* This block of code provides our webpage with specific styling instructions: 
+We want a light text (color: #f7f7f7;) applied to the body (body {}) of the page. */
+body {
+    color: #f7f7f7;
+}
+
+
+/* Customize the Jumbotron */
+.jumbotron {
+    /* The module has instructions to download nasa.jpg and instert it into the "images" folder. */
+    background-image: url('../images/nasa.jpg');
+    background-size: 100% 100%;
+    text-align: center;
+}
