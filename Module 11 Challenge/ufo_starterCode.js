@@ -1,6 +1,13 @@
 // This file (ufo_starterCode.js) downloaded per Deliverable 1 instructions in Module 11 Challenge.
 // https://courses.bootcampspot.com/courses/1225/assignments/24803?module_item_id=498895
 
+// Self-note: this file will be re-named app.js for the Module 11 Challenge
+// (The original app.js created + modified throughout Module 11 will be renamed app_1.js)
+
+// Self-note: I uploaded this file (ufo_starterCode.js) onto my repository
+// just in case I need to look back at the original untouched starter code in the future.
+
+
 
 // from data.js
 const tableData = data;
