@@ -1,3 +1,7 @@
+// This file (ufo_starterCode.js) downloaded per Deliverable 1 instructions in Module 11 Challenge.
+// https://courses.bootcampspot.com/courses/1225/assignments/24803?module_item_id=498895
+
+
 // from data.js
 const tableData = data;
 
