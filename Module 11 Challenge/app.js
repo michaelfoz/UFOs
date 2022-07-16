@@ -86,7 +86,8 @@ function updateFilters() {
         //        the label for each search parameter                                          |
         //        (2) an input element that provides the input box                             |
         //              Each input element has                                                 |
-        //                (a) and id (i.e., the property of each element in the data set--     |                    datetime, city, etc.)
+        //                (a) and id (i.e., the property of each element in the data set--     |
+        //                     datetime, city, etc.)                                           |
         //                (b) a placeholder                                                    |
         //                                                                                     |
         //    2 examples from the index.html file:                                             |
