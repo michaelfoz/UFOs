@@ -1,149 +1,195 @@
-// Instructions from Module 11.2.4: Storyboarding
-// https://courses.bootcampspot.com/courses/1225/pages/11-dot-2-4-storyboarding?module_item_id=498790
+// This file (ufo_starterCode.js) downloaded per Deliverable 1 instructions in Module 11 Challenge.
+// https://courses.bootcampspot.com/courses/1225/assignments/24803?module_item_id=498895
 
-// Import the data from data.js and assign it to variable tableData
-// (const is used because we don't want the variable to be reassigned/reused at all in our program.)
+// Self-note: this file will be re-named app.js for the Module 11 Challenge
+// (The original app.js created + modified throughout Module 11 will be renamed app_1.js-->also uploaded in repository for future reference.)
+
+
+
+// from data.js
 const tableData = data;
 
-
-
-// Reference the HTML table using d3 (i.e., point our data to HTML page
-// by telling JavaScript what type of element the data will be displayed in).
-// D3 is a JavaScript library that produces sophisticated/dynamic graphics to HTML webpage.
-
+// get table references
 var tbody = d3.select("tbody");
-// variable tbody is declared; d3.select used to tell JavaScript to look for <tbody>
-// tags in the HTML 
 
-
-
-// Instructions to return to this file (app.js in Module 11.5.1: Intro to Dynamic Tables)
-// https://courses.bootcampspot.com/courses/1225/pages/11-dot-5-1-introduction-to-dynamic-tables?module_item_id=498848
-// Goal: build a table to display all of the UFO sightings
-// How? Need to create a function that will:
-// (1) iterate through the array of objects in data.js file
-// (2) append objects to a table row
-
-
-// Name the function based on its task + pass in "data" as the arugment:
-
-// Pass in "data" as the argument. 
-// (Note: Remember that we used the variable "data" 
-// earlier to import our array of UFO sightings? 
-// This is the first step in actually working with the data.)
-
-// This 1st function will build a table + pass in "data" as the argument.
 function buildTable(data) {
-    // In the next line, we'll want to use code to clear existing data.
-    // (The entire line—tbody.html("");—tells JavaScript to use an empty string when creating the table; in other words, create a blank canvas. 
-    // This is a standard way to clear data.)
-    tbody.html("");
-    
-    // (Now that we have the start of a clean table, let's apply the forEach function.)
+  // First, clear out any existing data
+  tbody.html("");
 
+  // Next, loop through each object in the data
+  // and append a row and cells for each value in the row
+  data.forEach((dataRow) => {
+    // Append a row to the table body
+    let row = tbody.append("tr");
 
-    // Module 11.5.2: Add forEach to Your Table (below)
-    // https://courses.bootcampspot.com/courses/1225/pages/11-dot-5-2-add-foreach-to-your-table?module_item_id=498852
-   
-    // Loop through each object in the data
-    // and append a row and cells for each value in the row
-    data.forEach((dataRow) => {
-      // Append a row to the table body
-      let row = tbody.append("tr");
-  
-      // Loop through each field in the dataRow and add
-      // each value as a table cell (td)
-      Object.values(dataRow).forEach((val) => {
-        let cell = row.append("td");
-        cell.text(val);
-        }
-      );
+    // Loop through each field in the dataRow and add
+    // each value as a table cell (td)
+    Object.values(dataRow).forEach((val) => {
+      let cell = row.append("td");
+      cell.text(val);
     });
+  });
 }
 
-// Footnote/tip:--->tbody.html("");
-// Q: Why should you clear existing data from the table?
-// A: Because we need to clear the data first, otherwise the data users search will already be filtered when they search again.
+// 1. Create a variable to keep track of all the filters as an object. (Store the variables and ids.)
+var filters = {};
 
+// 3. Use this function to update the filters. 
+function updateFilters() {
 
+    // 4a. Save the element that was changed as a variable.
+    // (Create a variable that will select all of the elements that change;
+    // this will initialize an array for the value and the id.)
+    let changedElement = d3.select(this);
 
-// So far in the code:
-// The code we helped create will add every object in ou data.js file to the table. Bundled into one tidy package, 
-// every sighting will be available for Dana (and her readers) to view!
+    // 4b. Save the value that was changed as a variable.
+    // (Create a variable that will hold the value of the property that has changed.)
+    let elementValue = changedElement.property("value");
+    console.log(elementValue);
 
-// (There is a lot of information in data.js that needs to be filtered.)---A 2ND FUNCTION IS NEEDED!!!
+    // 4c. Save the id of the filter that was changed as a variable.
+    // (Create a variable that will hold the id of the id attribute that has changed.)
+    let filterId = changedElement.attr("id");
+    console.log(filterId);
+  
+    // 5. If a filter value was entered then add that filter id and value to the filters list. 
+    // (Check if a value is entered and stored in the elementValue variable.)
+    if (elementValue) {  // (1) If a value was entered, add it and the filter id to the filters object...
+      filters[filterId] = elementValue;
+    }
+    else {  // (2) Otherwise, [if value not entered] clear the filter id from the filters object.
+      delete filters[filterId];
+    }
+  
+    // 6. Call function to apply all filters and rebuild the table
+    // (This function will loop through the filters object--and for each key and value that is stored--the function
+    // will filter the movie table as indicated by the search parameters.)
+    filterTable();
+  
+  }
 
-
-// This is where -Module 11.5.3: Add Filters- comes in.
-// https://courses.bootcampspot.com/courses/1225/pages/11-dot-5-3-add-filters?module_item_id=498859
-
-
-    // This module introduces We'll be using D3.js:
-    // Data-Driven Documents (D3 for short) is a JavaScript library that adds interactive functionality, 
-    // such as when users click a button to filter a table. It works by "listening" for events, 
-    // such as a button click, then reacts according to the code we've created.
-
-// (In this case, we will filter the data by date.)
-// (Since we're adding a date function, we need to create a couple of variables to hold our date data, 
-// both filtered and unfiltered: date and filteredData).
-
-function handleClick() {
-    // Grab the datetime value from the filter
-    let date = d3.select("#datetime").property("value");
-
-    // Set a default filter and save it to a new variable
-    // (Our default filter will actually be the original table data (tableData from Module 11.2.4 above) 
-    // because we want users to refine their search on their own terms.)
+        //-------------------------------------------------------------------------------------|
+        //  Self-note: updateFilters() in this file works in conjuction to the index.html file |
+        //  index.html viewed on browser:                                                      |
+        //  Allows to filter the table based on any/or all of criteria                         |
+        //    (1) When a user enters search criteria, the JavaScript code (this file app.js)   |
+        //        will store values in the text box and  ID's associated with the text box     |
+        //        in a JavaScript Object when typing into the criteria field                   |
+        //        (under Filter Search)                                                        |
+        //    (2) When typing into the search criteria field, the code (app.js)                |
+        //        shows the [value entered] and the ID for that [value]                        |
+        //        in the DevTools console. (Same if multiple search criteria are entered.)     |
+        //                                                                                     |
+        //    (Search parameters are organized in the index.html file as list elements.)       |      
+        //        For each element, there is                                                   |
+        //        (1) a label for that element that contains                                   |
+        //        the label for each search parameter                                          |
+        //        (2) an input element that provides the input box                             |
+        //              Each input element has                                                 |
+        //                (a) and id (i.e., the property of each element in the data set--     |                    datetime, city, etc.)
+        //                (b) a placeholder                                                    |
+        //                                                                                     |
+        //    2 examples from the index.html file:                                             |
+        //                                                                                     |
+        //    <ul class="list-group bg-dark">                                                  |
+        //      <li class="list-group-item bg-dark">                                           |
+        //        <label for="date">Enter Date</label>                                         |
+        //        <input type="text" placeholder="1/10/2010" id="datetime" />                  |
+        //      </li>|                                                                         |
+        //      <li class="list-group-item bg-dark">                                           |
+        //        <label for="city">Enter a City</label>                                       |
+        //        <input type="text" id="city" class="form-control" placeholder="roswell" />   |
+        //      </li>                                                                          |
+        //    </ul>                                                                            |
+        //                                                                                     |
+        //-------------------------------------------------------------------------------------|
+  
+  // 7. Use this function to filter the table when data is entered.
+  function filterTable() {
+  
+    // 8. Set the filtered data to the tableData.
+    // (The default filter will actually be the original table data.)
     let filteredData = tableData;
+  
+    // 9. Loop through all of the filters and keep any data that
+    // matches the filter values
+    Object.entries(filters).forEach(([key, value]) => {
+      filteredData = filteredData.filter(row => row[key] === value);
+    });
 
-    // Module 11.5.4 = The next step is to check for a date filter using an if statement.
-    // 11.5.4: Use the “If” Statement
-    // https://courses.bootcampspot.com/courses/1225/pages/11-dot-5-4-use-the-if-statement?module_item_id=498864
-
-    // Check to see if a date was entered and filter the
-    // data using that date.
-    if (date) {
-    // Apply `filter` to the table data to only keep the
-    // rows where the `datetime` value matches the filter value
-        filteredData = filteredData.filter(row => row.datetime === date);
-    };
-
-    // Rebuild the table using the filtered data
-    // @NOTE: If no date was entered, then filteredData will
-    // just be the original tableData.
+    // 10. Finally, rebuild the table using the filtered data [passing the variable created in Step 8].
     buildTable(filteredData);
 
-}
-
-// Attach an event to listen for the form button
-d3.selectAll("#filter-btn").on("click", handleClick);
-
-// Build the table when the page loads
-buildTable(tableData);
-
-// Footnote/tip:--->let date = d3.select("#datetime").property("value");
-// .select() function is common function used in D3.
-    // It will select the very first element that matches our selector string: "#datetime". 
-    // (The selector string is the item we're telling D3.js to look for.)
-
-// Footnote/tip:--->d3.select("#datetime")
-    // tells D3 to look for the #datetime id in the HTML tags.
-    // As far as Module 11.5.3: (We haven't created our HTML yet, but we know that the date value will be nested within tags that have an id of "datetime.")
-
-// Footnote/tip:--->.property("value");
-    // By chaining .property("value"); to the d3.select function, 
-    // we're telling D3 not only to look for where our date values are stored on the webpage, 
-    // but to actually grab that information and hold it in the "date" variable.
-
-// Footnote/tip:--->let filteredData = tableData;
-    // tableData = the original data as imported from our data.js file (from Module 11.2.4 above).
-    // This is the original data as imported from our data.js file.
-    // By setting the filteredData variable to our raw data, we're basically using it as a blank slate. 
-    // The function we're working on right now will be run each time the filter button is clicked on the website. 
-    // If no date has been entered as a filter, then all of the data will be returned instead.
+  }
+  
+  // 2. Attach an event to listen for changes to each filter 
+  // (Below, an "event listener" to catch all seach parameters that change on user input.)
+  d3.selectAll("input").on("change", updateFilters);
+  // (Detects which input elements have changed on the html page, and when they change-->call the function updateFilters.)
+  
+  // Build the table when the page loads
+  buildTable(tableData);
 
 
 
-// Summary of functions within code:
-// (1) funtion buildTable()
-// (2) function handleClick() 
+  
+
+
+
+  
+// Module 11 Deliverable 1 Instructions:
+
+// Follow the instructions below and the numbered comments in the starter code to complete Deliverable 1.
+
+// [x] 1. Download the ufo_starterCode.js, rename it app.js, and place it in the js folder of your UFOs GitHub repository. 
+//          The starter code includes the code used to populate the table from this module.
+// [x] 2. In the index.html file, remove the list (<li></li>) element that creates the button.
+// [x] 3. Create four more list elements: city, state, country, and shape. 
+//          These will be similar to the "Enter Date" list element. 
+//          Each element should have the same "id" as the object properties in the data.js file.
+// [x] 4. In Step 1 of the app.js file, create an empty filters variable 
+//          to keep track of all the elements that change when a search is entered. 
+//          This variable will be used in Step 5 to store the property “id” and the value that was entered from user input.
+//
+//          var filters = {};
+//
+// [x] 5. Next, you will need to write code for two functions whose names we’ve 
+//          provided in the starter code, updateFilters() and filterTable().
+//
+//          The updateFilters() function will replace your handleClick() function and update the filters variable you created in Step 1.
+//          The filterTable() function will filter the table data by the value that is entered for the "id" that has changed.
+//
+// [x] 6. For Step 2, located before the buildTable(tableData) function at the end of the starter code, 
+//          modify the event listener from this module so that it detects 
+//          a "change" on each input element and calls the updateFilters() function.
+//
+//          d3.selectAll("input").on("change", updateFilters);
+//
+// [x] 7. In Step 3, we’ve provided the function, updateFilters(). 
+//          Inside this function, you’ll write code in Steps 4-5 to update the filters based on user input.
+//     
+// [x] 8. In Step 4a, create a variable that saves the element that was changed using d3.select(this).
+//                 
+// [x] 9. In Step 4b, create a variable that saves the value of the changed element’s property.
+//      
+// [x] 10. In Step 4c, create a variable that saves the attribute of the changed element’s id.
+//
+// [x] 11. In Step 5, write an if-else statement that checks if a value was changed by the user 
+//          (variable from Step 4b). If a value was changed, add the element’s id (variable from Step 4c) 
+//          as the property and the value that was changed to the filters variable you created in Step 1.
+//          If a value was not entered, then clear the element id from the filters variable.
+//
+// [x] 12. In Step 6, inside the updateFilters() function, 
+//           call the filterTable() function that will be used in Step 7.
+//
+// [x] 13. In the filterTable() function in Step 7, 
+//          write code to filter the table based on the user input that is stored in the filters variable.
+//
+// [x] 14. In Step 8, create a variable for the filtered data that is equal to the data that builds the table. 
+//          This variable will hold the updated table data based on the user input.
+//
+// [x] 15. In Step 9, loop through the filters object and store the data that matches the filter values in the variable created in Step 8.
+//
+// [x] 16. In Step 10, rebuild the table with the filtered data by passing the variable created in Step 8.
+//
+// [x] 17. Deploy the web app on your GitHub pages.
