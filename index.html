@@ -1,6 +1,7 @@
-<!-- Module 11.6.1: Bootstrap Components
+<!--Module 11.6.1: Bootstrap Components
 
-https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-1-bootstrap-components?module_item_id=498876
+    link:
+        https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-1-bootstrap-components?module_item_id=498876
 
 -->
 
@@ -10,23 +11,30 @@ https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-1-bootstrap-compone
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Change title of document to "UFO Finder"-->
     <title>UFO Finder</title>
+    <!--Add a link to Bootstrap's content delivery network (CDN)-->
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <!-- Add a link to our stylesheet under the link to Bootrstrap's CDN-->
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
-<body>
+<!-- Set up the body of the HTML where we'll store our components-->
+<body class="bg-dark">
+    <!-- The wrapper class adds extra functionality to Bootstrap;
+    it helps group the elements (title, paragraph, table, & filters)-->
     <div class="wrapper">
         <!--Build the Navbar-->
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
             <a class="navbar-brand" href="index.html">UFO Sightings</a>
         </nav>
         <!--Add the Jumbotron-->
         <div class="jumbotron">
-            <h1>The Truth Is Out There</h1>
+            <h1 class="display-4">The Truth Is Out There</h1>
         </div>
     </div>
     <!--Add the Article Title and Paragraph-->
@@ -50,16 +58,16 @@ https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-1-bootstrap-compone
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <form>
+                <form class="bg-dark">
                     <p>Filter Search</p>
                 </form>
-                <ul class="list-group">
-                    <li class="list-group-item">
+                <ul class="list-group bg-dark">
+                    <li class="list-group-item bg-dark">
                         <label for="date">Enter Date</label>
                         <input type="text" placeholder="1/10/2010" id="datetime" />
                     </li>
-                    <li class="list-group-item">
-                        <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                    <li class="list-group-item bg-dark">
+                        <button id="filter-btn" type="button" class="btn-dark">Filter Table</button>
                     </li>
                 </ul>
             </div>
@@ -85,15 +93,66 @@ https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-1-bootstrap-compone
           </div>
         </div>
       </div>
-      
+
       <!--Add the Data (Module 11.6.2)-->
+      <!--
+        link:
+            https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-2-add-the-data?module_item_id=498882
+      -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
       <script src="static/js/data.js"></script>
       <script src="static/js/app.js"></script>
 </body>
 </html>
 
-<!--How to drag-and-drop .hmtl file into browser to check work along the way:
+
+<!---Module 11.6.3: Customize the Page with CSS
+    This module provides instructions to go back into modify the code
+    to change the overall look of the webpage.
+
+    link:
+        https://courses.bootcampspot.com/courses/1225/pages/11-dot-6-3-customize-the-page-with-css?module_item_id=498888
+
+
+    Modifications include:
+        <body class="bg-dark">
+
+        ---
+
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+
+        ---
+
+        <div class="jumbotron">
+            <h1 class="display-4">The Truth is Out There</h1>
+        </div>
+
+        ---
+
+        <form class="bg-dark">
+
+        ---
+        Change:
+        <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+        To:
+        <button id="filter-btn" type="button" class="btn-dark">Filter Table</button>
+
+        ---
+
+        SKILL DRILL:
+            Add the class to the indicated elements:
+
+            "bg-dark" to the opening <form>, <ul>, and each  <li>[ tag.
+
+            ]{style="font-family: inherit; font-size: 1rem;"}Update the button element to use a class of "btn-dark" instead of "btn-default".
+
+
+-->
+
+<!--
+    Self-note: forgot how to open .html file--found this video on youtube:
+    
+    How to drag-and-drop .hmtl file into browser to check work along the way:
     link:
         https://www.youtube.com/watch?v=nqN_VPvMpW4 
 -->
