@@ -61,14 +61,50 @@
                 <form class="bg-dark">
                     <p>Filter Search</p>
                 </form>
-                <ul class="list-group bg-dark">
+
+                <!-- Search parameters are organized as list elements;
+                for each list element, there's (1) a label for that element that contains the label for each search parameter.
+                (2) and there is a input element that provides the input box.
+                        each input element has (1) and id, and (2) a placeholder.
+                        The id is the property of each element in the dataset.
+                -->
+
+                <ul class="list-group bg-dark"> 
                     <li class="list-group-item bg-dark">
                         <label for="date">Enter Date</label>
                         <input type="text" placeholder="1/10/2010" id="datetime" />
                     </li>
+                    <!--Deliverable 1 instruction:
+                    Step 2. In the index.html file, remove the list (<li></li>) element that creates the button.
+                    (I commented out the code instead.)
+
                     <li class="list-group-item bg-dark">
                         <button id="filter-btn" type="button" class="btn-dark">Filter Table</button>
                     </li>
+                    -->
+
+                     <!--Deliverable 1 instruction:
+                    Step 3. Create four more list elements: city, state, country, and shape. 
+                    These will be similar to the "Enter Date" list element. 
+                    Each element should have the same "id" as the object properties in the data.js file.
+                    -->
+                    <li class="list-group-item bg-dark">
+                        <label for="city">Enter a City</label>
+                        <input type="text" id="city" class="form-control" placeholder="roswell" />
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <label for="state">Enter a State</label>
+                        <input type="text" id="state" class="form-control" placeholder="ca" />
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <label for="country">Enter a Country</label>
+                        <input type="text" id="country" class="form-control" placeholder="us" />
+                    </li>
+                    <li class="list-group-item bg-dark">
+                        <label for="shape">Enter a Shape</label>
+                        <input type="text" id="shape" class="form-control" placeholder="circle" />
+                    </li>
+    
                 </ul>
             </div>
           
@@ -155,4 +191,17 @@
     How to drag-and-drop .hmtl file into browser to check work along the way:
     link:
         https://www.youtube.com/watch?v=nqN_VPvMpW4 
+
+    An error occured when I tried to drag the index.html to Microsoft Edge browser:
+        about:blank#blocked
+    (This error did not occur when attempting to drag the index.html file to Google Chrome.)
+
+    "“about:blank” is a blank page built into your web browser displayed when 
+    there’s nothing else to show. It’s not malware but can result from malware being removed. 
+    “about:blank#blocked” is sometimes displayed as the result of security software 
+    blocking access to something. “about:blank” can also be used as a fast browser homepage."
+
+    source:
+        https://askleo.com/what_is_aboutblank_and_how_do_i_get_rid_of_it/#:~:text=%E2%80%9Cabout%3Ablank%E2%80%9D%20is%20a,software%20blocking%20access%20to%20something.
+
 -->
